@@ -1,0 +1,20 @@
+{
+  "name": "portfolio-sms",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "nodemon": "nodemon --exec babel-node src/server.js",
+    "build": "babel src -d dist",
+    "test": "nodemon src/config/redis/redisConfig.js",
+    "slack": " nodemon src/inquiry/inquiry.js "
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "ip": "^1.1.8"
+  }
+}
