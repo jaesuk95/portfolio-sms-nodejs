@@ -1,16 +1,16 @@
 // 노드 메일러
-// const nodemailer = require("nodemailer");                                   // npm install nodemailer // 이미 설치되어 있음
-// const ejs = require("ejs");
+const nodemailer = require("nodemailer");                                   // npm install nodemailer // 이미 설치되어 있음
+const ejs = require("ejs");
 
 
 async function sendRegisterEmail(data) {
 
-    // let ejsData = {
-    //     name: data.variables.user.이름,
-    //     email: data.receiver,
-    //     registerDate: data.variables.user.가입일,
-    //     link: data.variables.user.링크,
-    // }
+    let ejsData = {
+        name: data.variables.user.이름,
+        email: data.receiver,
+        registerDate: data.variables.user.가입일,
+        link: data.variables.user.링크,
+    }
 
     // let template = findEmailTemplate(data);
 
