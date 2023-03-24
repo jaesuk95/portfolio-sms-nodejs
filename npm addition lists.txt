@@ -1,2 +1,6 @@
 // ip 주소 가져오기
 npm install ip --save
+
+// amqp 추가
+npm install amqplib
+
