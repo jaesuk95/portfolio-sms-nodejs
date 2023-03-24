@@ -3,7 +3,8 @@ const app = express()   //가져온 express 모듈의 function을 이용해서 �
 
 app.use(express.json());
 
-const port = 4000 //포트는 4000번 해도되고, 5000번 해도 된다. -> 이번엔 5000번 포트를 백 서버로 두겠다.
+// const port = 4000 //포트는 4000번 해도되고, 5000번 해도 된다. -> 이번엔 5000번 포트를 백 서버로 두겠다.
+const port = process.env.SERVER_PORT
 
 
 app.use("/api", require("./middleware/trackip"));
