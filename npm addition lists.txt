@@ -4,3 +4,4 @@ npm install ip --save
 // amqp 추가
 npm install amqplib
 
+npm install redis

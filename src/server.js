@@ -1,10 +1,11 @@
 const express = require('express')
+const dotenv = require('dotenv').config();
 const app = express()   //가져온 express 모듈의 function을 이용해서 새로운 express 앱을 만든다.
 
 app.use(express.json());
 
 // const port = 4000 //포트는 4000번 해도되고, 5000번 해도 된다. -> 이번엔 5000번 포트를 백 서버로 두겠다.
-const port = process.env.SERVER_PORT
+// const port = 4000
 
 
 app.use("/api", require("./middleware/trackip"));
@@ -34,6 +35,10 @@ app.use((req,res,next)=> {
     res.send({error: '404 not found error'});
 })
 
-app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`)
-}) //포트 5000번에서 이 앱을 실행한다.
+app.listen(process.env.PORT, function () {
+    console.log(`listening on http://localhost:${process.env.PORT}`)
+});
+
+// app.listen(4000, function () {
+//     console.log(`listening on http://localhost:4000`)
+// });
