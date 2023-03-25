@@ -41,7 +41,7 @@ async function sendRegisterEmail(data) {
                 ],
             },
         }
-        // ,
+        ,
         // (err, info) => {
         //   console.log(err.message);
         //   // console.log(info.envelope);
