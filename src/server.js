@@ -32,6 +32,8 @@ const consume = ({connection, channel}) => {
         // // 원하는 Queue 의 이름을 적어준다.
         queue.userRegisterEmail(channel);
 
+        queue.aligoMessage(channel);
+
         // Queue 가 닫혔거나. 에러가 발생하면 reject
         connection.on('close', (err) => {
             return reject(err);
