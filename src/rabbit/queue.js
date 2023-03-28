@@ -25,6 +25,31 @@ function userRegisterEmail(channel) {
     })
 }
 
+function userOrder(channel) {
+    channel.consume('order', async (msg) => {
+        const msgBody = msg.content.toString();
+        try {
+            // 1. 받은 메시지를 파싱하고.
+            const data = JSON.parse(msgBody);
+            // await emailService.sendRegisterEmail(data)
+            // 2. 잘 받았으니 ACK를 보내자.
+            await channel.ack(msg);
+
+            slackService.userOrderAlert(data)
+            await emailService.sendUserOrderEmail(data);
+
+        } catch (e) {
+            let parse = {}
+            parse.body = msgBody.toString()
+            parse.tag = "userOrder"
+            parse.errorMessage = e.message
+
+            await channel.sendToQueue(failedQueue, Buffer.from(JSON.stringify(parse), "utf-8"))
+            await channel.nack(msg, true, false)
+        }
+    })
+}
+
 // 문자 발송 (알리고 서비스는 사업자번호가 필수이므로 테스트는 불가했다.)
 async function aligoText(channel) {
     channel.consume('alimMessage', async (msg) => {

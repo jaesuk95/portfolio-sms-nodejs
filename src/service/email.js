@@ -51,10 +51,64 @@ async function sendRegisterEmail(data) {
     console.log("'" + data.receiver + "'님에게 회원가입 이메일 발송")
 }
 
+
+// 앞으로 밑에있는 array 으로 변할 예정
+async function sendUserOrderEmail(data) {
+
+    const userOrder = data.variables.userOrder;
+
+    // userOrder -> orderDetail (@OneToMany)
+    let ejsArrayData = [];
+    for (const orderDetail of data.variables.userOrder.orderDetails) {
+        ejsArrayData.push({
+            productName: orderDetail.productName,
+            orderStatus: userOrder.status,   // detailOrderStatus === '주문접수'
+            quantity: orderDetail.quantity,
+            productPrice: orderDetail.productPrice,
+            // 주소
+            postal: orderDetail.postal,
+            addressDetail: orderDetail.addressDetail,
+            name: orderDetail.username,
+            phone: orderDetail.phone
+        });
+    }
+
+    let ejsData = {
+        email: data.receiver,
+        totalPrice: userOrder.totalPrice,
+        paymentMethod: userOrder.method,
+
+        orderDetails: ejsArrayData
+    }
+
+    let template = findEmailTemplate(data);
+
+    transporter.sendMail(
+        {
+            from: data.sender,
+            to: data.receiver,
+            subject: data.variables.userOrder.title,
+            html: ejs.render(await template, {data: ejsData}),
+            // text: ejs.render(await template, {data: ejsData}),
+            ses: {
+                Tags: [
+                    {
+                        Name: "tag_name",
+                        Value: "tag_value",
+                    },
+                ],
+            },
+        }
+    );
+    console.log("'" + data.receiver + "'님에게 회원가입 이메일 발송")
+}
+
+
 function findEmailTemplate(data) {
     return redisService.redisGet(EMAIL_KEY + data.templateId);
 }
 
 module.exports = {
-    sendRegisterEmail
+    sendRegisterEmail,
+    sendUserOrderEmail
 }
