@@ -16,10 +16,10 @@ const transporter = nodemailer.createTransport({
 async function sendRegisterEmail(data) {
 
     let ejsData = {
-        name: data.variables.user.이름,
+        name: data.variables.user.name,
         email: data.receiver,
-        registerDate: data.variables.user.가입일,
-        link: data.variables.user.링크,
+        registerDate: data.variables.user.registerDate,
+        link: data.variables.user.link,
     }
 
     // database 설치 해주면 된다
@@ -41,12 +41,6 @@ async function sendRegisterEmail(data) {
                 ],
             },
         }
-        ,
-        // (err, info) => {
-        //   console.log(err.message);
-        //   // console.log(info.envelope);
-        //   console.log(info.messageId);
-        // }
     );
     console.log("'" + data.receiver + "'님에게 회원가입 이메일 발송")
 }
