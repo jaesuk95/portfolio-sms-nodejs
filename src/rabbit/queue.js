@@ -180,5 +180,6 @@ ${data.name}님 알리고 메시지를 사용하기 위해서는 사업등록 �
 module.exports = {
     userRegisterEmail,
     aligoText,
-    aligoKakao
+    aligoKakao,
+    userOrder
 }

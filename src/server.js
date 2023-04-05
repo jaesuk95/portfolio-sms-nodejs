@@ -28,9 +28,8 @@ const consume = ({connection, channel}) => {
         // // 원하는 Queue 의 이름을 적어준다.
         queue.userRegisterEmail(channel);
         queue.userOrder(channel);
-
-        // queue.aligoText(channel);    // 알리고 계정 없음
-        // queue.aligoKakao(channel);   // 알리고 계정 없음
+        queue.aligoText(channel);    // 알리고 계정 없음
+        queue.aligoKakao(channel);   // 알리고 계정 없음
 
         // Queue 가 닫혔거나. 에러가 발생하면 reject
         connection.on('close', (err) => {
